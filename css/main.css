@@ -1825,7 +1825,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #746b6e;
+  background: #266bff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2759,6 +2759,8 @@ pre .javascript .function {
   padding: 20px 0;
   color: #fff;
   background: #222;
+  background: url("https://img.zcool.cn/community/01424d5b99b561a8012099c8c882db.jpg@1280w_1l_2o_100sh.jpg") no-repeat left center;
+  background-size: cover;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .site-meta {
