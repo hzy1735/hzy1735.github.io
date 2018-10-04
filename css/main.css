@@ -1825,7 +1825,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #25ff1d;
+  background: #746b6e;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1842,9 +1842,11 @@ pre .javascript .function {
 }
 .links-of-blogroll-item {
   padding: 2px 10px;
+  display: inline-block;
+  width: 40%;
 }
 .links-of-blogroll-item a {
-  max-width: 280px;
+  max-width: 120px;
   box-sizing: border-box;
   display: inline-block;
   overflow: hidden;
