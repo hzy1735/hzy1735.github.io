@@ -1692,6 +1692,8 @@ pre .javascript .function {
   padding: 20px 10px;
   color: #999;
   text-align: center;
+  min-height: 350px;
+  overflow: hidden;
 }
 .site-overview-wrap {
   overflow: hidden;
@@ -1823,7 +1825,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #deffff;
+  background: #50b6ff;
 }
 .links-of-blogroll {
   font-size: 13px;
