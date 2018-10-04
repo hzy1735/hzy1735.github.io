@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ ##准备工作  安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申">
+<meta name="description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ 准备工作   安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申请">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Hexo 搭建属于自己的博客（一）">
 <meta property="og:url" content="http://yoursite.com/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/index.html">
 <meta property="og:site_name" content="胡二闹的博客">
-<meta property="og:description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ ##准备工作  安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申">
+<meta property="og:description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ 准备工作   安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申请">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-04T13:00:16.879Z">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1108615/201710/1108615-20171021232413224-1288183746.png">
+<meta property="og:updated_time" content="2018-10-04T13:30:49.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Hexo 搭建属于自己的博客（一）">
-<meta name="twitter:description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ ##准备工作  安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申">
+<meta name="twitter:description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ 准备工作   安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申请">
+<meta name="twitter:image" content="https://images2017.cnblogs.com/blog/1108615/201710/1108615-20171021232413224-1288183746.png">
 
 
 
@@ -373,19 +375,74 @@
 
       
         <p>最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！</p>
-<p>##准备工作</p>
+<h2>准备工作</h2>
+
 <ol>
 <li>安装Node.js和配置好Node.js环境。</li>
 <li>安装Git和配置好Git环境。</li>
 <li>申请github账号，后面需要将项目上传至github上，使用它的服务器上线。</li>
 </ol>
-<p>##具体步骤</p>
+<h2>安装Hexo</h2>
+
 <ol>
-<li><p>安装Hexo，在自己认为合适的地方创个文件夹，在这个文件夹目录下打开命令行，执行下列代码。</p>
+<li><p>全局安装Hexo，在自己认为合适的地方创个文件夹，在这个文件夹目录下打开命令行，执行下列代码。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g</span><br></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li><p>检查hexo是否安装成功，如果出入一大堆版本号，就是成功了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在该文件夹下初始化hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>看到后面的“Start blogging with Hexo！”，就代表成功咧，激不激动噻！</p>
+<ol start="4">
+<li><p>安装hexo运行所需要的组建，建议在网络好的情况下进行，不然丢包出错真的不好查。。。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑静态文件，手不要贱，等着就行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动hexo本地服务器，根据提示在浏览器中输入网址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果端口号被占用，执行下列代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server -p 端口号</span><br></pre></td></tr></table></figure></p>
+<ol start="7">
+<li>如果出现下图就代表成功了<br><img src="https://images2017.cnblogs.com/blog/1108615/201710/1108615-20171021232413224-1288183746.png" alt="成功"></li>
+</ol>
+<h2>关联github</h2>
+
+<ol>
+<li><p>确保自己使用的电脑已经有生成公钥和密钥，并且在github上已经设置好。测试连接代码如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在github上创建一个新的仓库，项目必须要遵守格式：账户名.github.io，不然不能使用它本身提供的服务器。</p>
+</li>
+<li><p>配置Deployment,在根目录下找到_config.yml文件,修改deploy，一般在文件的最后面。repository后面改成自己仓库的SSH链接地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:hzy1735/hzy1735.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装一个模块，用来进行自动打包提交。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>制定打包提交命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果没有error，就是部署成功了，输入http://用户名.github.io，即可浏览自己的博客了</p>
+</li>
+</ol>
+<h2>编写博客</h2>
+
+<ol>
+<li><p>在根目录下，命令行中输入下列代码，自动创建一个后缀为md的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post “博客名”</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于Hexo的博客都是md文件，所以需要学一下md的语法，其实很简单，自行百度去吧。我是用vscode编写的，安装一个Markdown Preview Enhanced插件，就可以预览写出来的东西，vscode真牛逼！！！</p>
+</li>
+<li>编写完成后，在执行打包提交代码，就能对线上的博客进行更新了。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上就是安装hexo和上线的操作咯，接下来还有更高级的操作咧。</p>
 
       
     </div>
@@ -414,26 +471,6 @@
       
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/09/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/04/test-1/" rel="prev" title="test">
-                test <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
 
       
@@ -485,8 +522,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -505,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -587,6 +633,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">关联github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">编写博客</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
