@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从入门到入土，使用next主题打造一个狂拽炫酷吊炸天的个人博客，顺便po一下自己在搭建过程中遇到一些的问题和爬坑过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Hexo 搭建属于自己的博客（二）">
+<meta property="og:url" content="http://yoursite.com/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/index.html">
+<meta property="og:site_name" content="胡二闹的博客">
+<meta property="og:description" content="从入门到入土，使用next主题打造一个狂拽炫酷吊炸天的个人博客，顺便po一下自己在搭建过程中遇到一些的问题和爬坑过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-adbedd9a1b28f989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-85fa4623831c9219.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-5a666d77f0d6d222.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-dc7b8d52c5c0d080.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-f092e86787d372b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-8d21840cabdfb5a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-8eae63913733fcac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-38b4a9c655b93fea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-648e20cbd6a8d36e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-2e1ce9e137a32584.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-26022d9c7e5f1b97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-479be329e088038d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-94ae2c6f1fa0a1c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-52669463f1e533d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14311049-d17b316c0b3c4596.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-10-05T07:45:12.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Hexo 搭建属于自己的博客（二）">
+<meta name="twitter:description" content="从入门到入土，使用next主题打造一个狂拽炫酷吊炸天的个人博客，顺便po一下自己在搭建过程中遇到一些的问题和爬坑过程。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14311049-adbedd9a1b28f989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/"/>
+
+
+
+
+
+  <title>使用 Hexo 搭建属于自己的博客（二） | 胡二闹的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胡二闹的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">call me Maybe</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            简介
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maybe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胡二闹的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用 Hexo 搭建属于自己的博客（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-05T13:10:49+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo-搭建博客/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo 搭建博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/" class="leancloud_visitors" data-flag-title="使用 Hexo 搭建属于自己的博客（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  从入门到入土，使用next主题打造一个狂拽炫酷吊炸天的个人博客，顺便po一下自己在搭建过程中遇到一些的问题和爬坑过程。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>说实话，系统提供的主题看起来真的丑，找来找去发现，next这个主题还是可以的，低调奢华有内涵，就很适合我这种高端大气上档次的boy。接下来我就说说怎么使用next主题打造一个狂拽炫酷吊炸天的个人博客，顺便po一下自己在搭建过程中遇到一些的问题和爬坑过程。</p>
+</blockquote>
+<p></p><h2 id="1">next入门</h2><p></p>
+<p></p><h3 id="1.1">安装主题</h3><p></p>
+<ol>
+<li>在hexo文件夹的根目录下，使用git 下载最新的next主题<blockquote>
+<p>git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next</p>
+</blockquote>
+</li>
+<li><p>启用主题，在hexo 的配置文件中，修改字段theme的值为next</p>
+</li>
+<li><p>验证主题，在命令行中执行下列代码，如果没有报错，就按照显示的地址在本地查看博客吧。</p>
+<blockquote>
+<p>hexo s</p>
+</blockquote>
+</li>
+</ol>
+<p></p><h3 id="1.2">设置主题</h3><br>next中有4个主题，可以通过选择 Scheme ，修改next的主题样式，一个一个去试就好了，我还是觉得Pisces比较干净。<br><img src="https://upload-images.jianshu.io/upload_images/14311049-adbedd9a1b28f989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><p></p>
+<p></p><h3 id="1.3">设置语言</h3><br>编辑hexo的配置文件， 将字段 language 设置成你所需要的语言，修改完成后需要重新编译静态文件。乡下人英语不好，还是简体中文看着舒服。<p></p>
+<blockquote>
+<p>language: zh-Hans</p>
+</blockquote>
+<p>目前 NexT 支持的语言如以下表格所示：<br><img src="https://upload-images.jianshu.io/upload_images/14311049-85fa4623831c9219.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p></p><h3 id="1.4">设置菜单</h3><br>编辑hexo的配置文件， 将字段 menu下打开需要属性。||前面是对应的页面，后面是icon小图标名称，使用的是fontawesome图标库，直接去<a href="http://fontawesome.dashgame.com/" target="_blank" rel="noopener">fontawesome官网</a>找吧，把名字复制过来替换即可。<p></p>
+<blockquote>
+<p>menu:<br>  home: / || home<br>  about: /about/ || user<br>  categories: /categories/ || th<br>  tags: /tags/ || tags<br>  archives: /archives/ || archive</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/14311049-5a666d77f0d6d222.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>有些新建的菜单选项可能没有文件夹，在点击时会报404页面，需要手动创建文件夹。可以在hexo根目录下执行下列命令</p>
+<blockquote>
+<p>hexo new page “目录名称”</p>
+</blockquote>
+<p></p><h3 id="1.5">设置头像和网站的favicon图标</h3><br>编辑next文件夹中的主题配置文件（<code>_config.yml</code>）， 修改字段 <code>avatar</code>和<code>favicon</code>， 值设置成头像的链接地址。我一般把图片放在hexo根目录的source文件夹下自己创建的image文件夹中。<br><img src="https://upload-images.jianshu.io/upload_images/14311049-dc7b8d52c5c0d080.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><p></p>
+<p></p><h3 id="1.6">设置侧边栏社交链接和推荐链接</h3><br>打开主题配置文件（<code>_config.yml</code>）<br>搜索<code>social_icons:</code>,在<a href="http://fontawesome.dashgame.com/" target="_blank" rel="noopener">fontawesome官网</a>找喜欢的小图标，将名字复制在如下位置。<br><img src="https://upload-images.jianshu.io/upload_images/14311049-f092e86787d372b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>搜索<code>links：</code>，在这里可以添加推荐阅读的链接，如下图<br><img src="https://upload-images.jianshu.io/upload_images/14311049-8d21840cabdfb5a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><p></p>
+<p></p><h2 id="2">next进阶</h2><p></p>
+<p></p><h3 id="2.1">网站底部加上访问量</h3><br><img src="https://upload-images.jianshu.io/upload_images/14311049-8eae63913733fcac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><p></p>
+<p>打开<code>\themes\next\layout\_partials\footer.swig</code>文件,在copyright前加上画红线这句话</p>
+<blockquote>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</blockquote>
+<p>然后再合适的位置添加显示统计的代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"powered-by"</span>&gt;</span><br><span class="line">  &lt;i class=<span class="string">"fa fa-user-md"</span>&gt;&lt;/i&gt;</span><br><span class="line">  &lt;span id=<span class="string">"busuanzi_container_site_uv"</span>&gt;</span><br><span class="line">    本站访客数:&lt;span id=<span class="string">"busuanzi_value_site_uv"</span>&gt;&lt;/span&gt;</span><br><span class="line">  &lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在这里有两中不同计算方式的统计代码： </p>
+<ol>
+<li>pv的方式，单个用户连续点击n篇文章，记录n次访问量</li>
+<li>uv的方式，单个用户连续点击n篇文章，只记录1次访客数<br>注意这个东西在本地服务器上的数据都是假的，只有线上服务器才是真实数据。<br><h3 id="2.2">引入网易云音乐</h3><br><img src="https://upload-images.jianshu.io/upload_images/14311049-38b4a9c655b93fea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+</ol>
+<p>我们可以通过网易云提供的外链播放器，让自己的博客自动播放音乐。<br><img src="https://upload-images.jianshu.io/upload_images/14311049-648e20cbd6a8d36e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>将下面的代码复制到自己想要放置播放器的地方<br><img src="https://upload-images.jianshu.io/upload_images/14311049-2e1ce9e137a32584.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>这个播放器可以放在任何地方。我选择放在侧边栏中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;music163player&quot;&gt;</span><br><span class="line">    &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=280 height=86 src=&quot;https://music.163.com/outchain/player?type=2&amp;id=38358214&amp;auto=0&amp;height=66&quot;&gt;</span><br><span class="line">    &lt;/iframe&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意 这里复制下来的地址中src是没有https:的 需要自己添加，不然无法生成播放器，这个坑我爬了一个晚上…</p>
+<p></p><h3 id="2.3">实现统计功能</h3><br>使用hexo-wordcount插件，实现博客字数和阅读时间的统计<br>在hexo根目录下执行下列命令，安装插件<p></p>
+<blockquote>
+<p>npm install hexo-wordcount –save</p>
+</blockquote>
+<p>然后在主题配置文件中找到post_wordcount，将需要的东西改成true，即可实现该功能。</p>
+<p></p><h3 id="2.4">阅读次数统计</h3><br>我是使用leancloud来实现阅读次数的统计。<br>首先需要去<a href="https://leancloud.cn/" target="_blank" rel="noopener">leancloud官网</a>注册一下<br>注册完成后，进入控制台，点击箭头指向的东西<br><img src="https://upload-images.jianshu.io/upload_images/14311049-26022d9c7e5f1b97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>在存储中创建一个类 Counter 必须是这个命名<br>然后获取appid和appkey<br><img src="https://upload-images.jianshu.io/upload_images/14311049-479be329e088038d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>将这两个值放到主题配置文件中leancloud_visitors下对应的字段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">leancloud_visitors:</span><br><span class="line">  enable: true</span><br><span class="line">  app_id: yourapp_id</span><br><span class="line">  app_key: yourapp_key</span><br></pre></td></tr></table></figure><p></p>
+<p>最后在安全中心中，设置Web 安全域名<br><img src="https://upload-images.jianshu.io/upload_images/14311049-94ae2c6f1fa0a1c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>同样这个数据在本地是无法计算的，而且会报错，只有上线后才能计算每次浏览的次数。</p>
+<p></p><h3 id="2.5">设置评论功能</h3><br>网上有一大堆开源的评论插件，类似来必力(韩国棒子出品，这不抵制一下？）、畅言、友言。最后发现上面一个leancloud也可以用来做评论，只不过需要配合Valine一起使用。<p></p>
+<ol>
+<li>下载最新的<a href="https://cdn.jsdelivr.net/npm/valine@1.1.9-beta9/dist/" target="_blank" rel="noopener">Valine.min.js</a>核心代码库到本地</li>
+<li>将下载好的 <code>Valine.min.js</code> 放置于 <code>next\source\js\src\</code>下</li>
+<li><p>打开valine配置文件进行配置,valine配置文件路径：<code>next\layout\_third-party\comments\valine.swig</code></p>
+<figure class="highlight plain"><figcaption><span>if theme.valine.enable and theme.valine.appid and theme.valine.appkey %&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  &lt;script src=&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=&quot;//unjkp.com/valine/dist/Valine.min.js&quot;&gt;&lt;/script&gt;  //删除Valine核心代码库外链调用</span><br><span class="line">  &lt;script src=&quot;/js/src/Valine.min.js&quot;&gt;&lt;/script&gt;  //调用刚下载的本地文件以加速加载速度</span><br><span class="line"></span><br><span class="line">  &#123;% set valine_uri = &apos;/js/src/Valine.min.js&apos; %&#125;  //这里改为从本地加载</span><br><span class="line">  &#123;% if theme.vendors.valine %&#125;</span><br><span class="line">    &#123;% set valine_uri = theme.vendors.valine %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">  &lt;script src=&quot;&#123;&#123; valine_uri &#125;&#125;&quot;&gt;&lt;/script&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    var GUEST = [&apos;nick&apos;,&apos;mail&apos;,&apos;link&apos;];</span><br><span class="line">    var guest = &apos;&#123;&#123; theme.valine.guest_info &#125;&#125;&apos;;</span><br><span class="line">    guest = guest.split(&apos;,&apos;).filter(function (item) &#123;</span><br><span class="line">      return GUEST.indexOf(item)&gt;-1;</span><br><span class="line">    &#125;);</span><br><span class="line">    new Valine(&#123;</span><br><span class="line">        el: &apos;#comments&apos; ,</span><br><span class="line">        verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">        notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">        appId: &apos;&#123;&#123; theme.valine.appid &#125;&#125;&apos;,</span><br><span class="line">        appKey: &apos;&#123;&#123; theme.valine.appkey &#125;&#125;&apos;,</span><br><span class="line">        placeholder: &apos;&#123;&#123; theme.valine.placeholder &#125;&#125;&apos;,</span><br><span class="line">        avatar:&apos;&#123;&#123; theme.valine.avatar &#125;&#125;&apos;,</span><br><span class="line">        guest_info:[&apos;nick&apos;] ,  //评论者只需要提供评论的昵称即可</span><br><span class="line">        pageSize:&apos;&#123;&#123; theme.valine.pageSize &#125;&#125;&apos; || 10,</span><br><span class="line">    &#125;);</span><br><span class="line">    //增加以下六行代码去除 power by valine</span><br><span class="line">    var infoEle = document.querySelector(&apos;#comments .info&apos;);</span><br><span class="line">    if (infoEle &amp;&amp; infoEle.childNodes &amp;&amp; infoEle.childNodes.length &gt; 0)&#123;</span><br><span class="line">      infoEle.childNodes.forEach(function(item) &#123;</span><br><span class="line">        item.parentNode.removeChild(item);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后去主题配置文件中进行修改，下面是我的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Valine.</span><br><span class="line"># You can get your appid and appkey from https://leancloud.cn</span><br><span class="line"># more info please open https://valine.js.org</span><br><span class="line">valine:</span><br><span class="line">  enable: true //打开valine评论功能</span><br><span class="line">  appid: 你的leancloud appid </span><br><span class="line">  appkey: 你的leancloud appkey </span><br><span class="line">  notify: false //邮件提醒</span><br><span class="line">  verify: true //评论时是否有验证码，需要在Leancloud 设置-&gt;安全中心 中打开</span><br><span class="line">  placeholder: 说点什么吧！ //评论框默认显示</span><br><span class="line">  avatar: hide //评论者的头像,我这里设置的不显示</span><br><span class="line">  guest_info: nick # custom comment header</span><br><span class="line">  pageSize: 10 # pagination size</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>下面是效果图<br><img src="https://upload-images.jianshu.io/upload_images/14311049-52669463f1e533d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p></p><h3 id="2.6">为博客加上萌萌的宠物</h3><br>这个也是在找资料的时候发现的，虽然很好看，但是跟那个canvas背景图一样，有点占资源，可能会导致网站打开有点慢。下面是设置方法。<p></p>
+<ol>
+<li><p>在hexo根目录下安装插件</p>
+<blockquote>
+<p>npm install -save hexo-helper-live2d</p>
+</blockquote>
+</li>
+<li><p><a href="https://huaji8.top/post/live2d-plugin-2.0/" target="_blank" rel="noopener">宠物样式列表</a>，选择你喜欢的萌妹子或者小动物，然后安装。</p>
+<blockquote>
+<p>npm install live2d-widget-model-“宠物代码”</p>
+</blockquote>
+</li>
+<li>在hexo的配置文件中添加下列配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">live2d:</span><br><span class="line">  enable: true</span><br><span class="line">  scriptFrom: local</span><br><span class="line">  model:</span><br><span class="line">    use: live2d-widget-model-z16</span><br><span class="line">  display:</span><br><span class="line">    position: right</span><br><span class="line">    width: 100</span><br><span class="line">    height: 150</span><br><span class="line">  mobile:</span><br><span class="line">    show: true</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>我这个在本地运行好像不是很流畅，建议把mobile设置为false，因为手机上真的好占位置。。。<br>下面是效果图<br><img src="https://upload-images.jianshu.io/upload_images/14311049-d17b316c0b3c4596.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>别问我为啥选这个，老子晕奶！！！</p>
+<blockquote>
+<p>好了，暂时写这么多吧，感觉还有好多坑没有写进来。写完了还是蛮有成就感的，至少对得起掉下的这么多头发了。。。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qcode.jpg" alt="Maybe wechat" style="width: 200px; max-width: 100%;"/>
+    <div>关注公众号 胡二闹全球粉丝团</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/" rel="next" title="使用 Hexo 搭建属于自己的博客（一）">
+                <i class="fa fa-chevron-left"></i> 使用 Hexo 搭建属于自己的博客（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/2.jpg"
+                alt="Maybe" />
+            
+              <p class="site-author-name" itemprop="name">Maybe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hzy1735" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/5275146705/home" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+            <div id ="music163player">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=5308028&auto=0&height=66"></iframe>
+            </div>
+          
+
+          
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-heartbeat"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/TomXu/" title="汤姆大叔" target="_blank">汤姆大叔</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bbs.nga.cn/thread.php?fid=321&_ff=321&rand=241" title="NGA玩家社区" target="_blank">NGA玩家社区</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">next入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1.1"><span class="nav-number">1.1.</span> <span class="nav-text">安装主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.2"><span class="nav-number">1.2.</span> <span class="nav-text">设置主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.3"><span class="nav-number">1.3.</span> <span class="nav-text">设置语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.4"><span class="nav-number">1.4.</span> <span class="nav-text">设置菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.5"><span class="nav-number">1.5.</span> <span class="nav-text">设置头像和网站的favicon图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.6"><span class="nav-number">1.6.</span> <span class="nav-text">设置侧边栏社交链接和推荐链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">next进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1"><span class="nav-number">2.1.</span> <span class="nav-text">网站底部加上访问量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2"><span class="nav-number">2.2.</span> <span class="nav-text">引入网易云音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.3"><span class="nav-number">2.3.</span> <span class="nav-text">实现统计功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.4"><span class="nav-number">2.4.</span> <span class="nav-text">阅读次数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.5"><span class="nav-number">2.5.</span> <span class="nav-text">设置评论功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.6"><span class="nav-number">2.6.</span> <span class="nav-text">为博客加上萌萌的宠物</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maybe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+</span>
+  </div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="/js/src/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '4b810adbr2sJkbPxtLHA2o6I-gzGzoHsz',
+        appKey: 'VlqAlM75jIBTDoFEO77xrbBM',
+        placeholder: '说点什么吧！',
+        avatar:'mm',
+        guest_info:['nick'] ,  //评论者只需要提供评论的昵称即可
+        pageSize:'10' || 10,
+    });
+    //增加以下六行代码去除 power by valine
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("4b810adbr2sJkbPxtLHA2o6I-gzGzoHsz", "VlqAlM75jIBTDoFEO77xrbBM");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":100,"height":150},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
