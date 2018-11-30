@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="胡二闹的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="前言&amp;emsp;&amp;emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。 一.immutable.js介绍 原生js在redux中处理数据的坑&amp;emsp;&amp;emsp;前两天在处理购物车的redux逻辑的时候，遇到一个问题，全选反选的功能和逻辑没有问题，改变后的数据在reducer中打印">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Immutable.js之我见">
+<meta property="og:url" content="http://yoursite.com/2018/11/30/Immutable.js之我见/index.html">
 <meta property="og:site_name" content="胡二闹的博客">
+<meta property="og:description" content="前言&amp;emsp;&amp;emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。 一.immutable.js介绍 原生js在redux中处理数据的坑&amp;emsp;&amp;emsp;前两天在处理购物车的redux逻辑的时候，遇到一个问题，全选反选的功能和逻辑没有问题，改变后的数据在reducer中打印">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-30T07:57:00.207Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="胡二闹的博客">
+<meta name="twitter:title" content="Immutable.js之我见">
+<meta name="twitter:description" content="前言&amp;emsp;&amp;emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。 一.immutable.js介绍 原生js在redux中处理数据的坑&amp;emsp;&amp;emsp;前两天在处理购物车的redux逻辑的时候，遇到一个问题，全选反选的功能和逻辑没有问题，改变后的数据在reducer中打印">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/30/Immutable.js之我见/"/>
 
 
 
 
 
-  <title>胡二闹的博客</title>
+  <title>Immutable.js之我见 | 胡二闹的博客</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,9 +247,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -276,9 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/30/Immutable.js之我见/" itemprop="url">Immutable.js之我见</a></h1>
+          <h1 class="post-title" itemprop="name headline">Immutable.js之我见</h1>
         
 
         <div class="post-meta">
@@ -371,26 +372,58 @@
       
 
       
-        
-          
-          前言&emsp;&emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。
-一.immutable.js介绍
-原生js在redux中处理数据的坑&emsp;&emsp;前两天在处理购物车的
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/30/Immutable.js之我见/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p></p><h2 id="1">前言</h2><br>&emsp;&emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。<p></p>
+<p></p><h2 id="2">一.immutable.js介绍</h2><p></p>
+<h3 id="2.1">原生js在redux中处理数据的坑</h3><br>&emsp;&emsp;前两天在处理购物车的redux逻辑的时候，遇到一个问题，全选反选的功能和逻辑没有问题，改变后的数据在reducer中打印出来也已经是正确的改变，但是页面中的元素就是不会发生改变，甚至不会重新执行render()的生命周期。<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取存储的购物车商品信息</span></span><br><span class="line"><span class="keyword">let</span> products = state.products</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据传入的id 查找并修改这个物品的选中状态</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; products.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (products[i].id === action.id) &#123;</span><br><span class="line">    products[i].select = action.isSelect</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回新的状态</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    ...state,</span><br><span class="line">    products,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>&emsp;&emsp;乍一看好像没有问题，找了好久才发现在reducer中处理数据的时候使用了地址引用，导致返回的还是原来的对象，状态没有发生改变。React对于状态变化的感知是必须返回的新对象才会引起状态的变化，从而去渲染页面。下面才是正常的代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取存储的购物车商品信息</span></span><br><span class="line"><span class="keyword">let</span> products = state.products</span><br></pre></td></tr></table></figure><br><br>&emsp;&emsp;在js中，引用类型的数据，优点在于频繁的操作数据都是在原对象的基础上修改，不会创建新对象，从而可以有效的利用内存，不会浪费内存，这种特性称为mutable（可变），但恰恰它的优点也是它的缺点，太过于灵活多变在复杂数据的场景下也造成了它的不可控性，假设一个对象在多处用到，在某一处不小心修改了数据，其他地方很难预见到数据是如何改变的，针对这种问题的解决方法，一般就像刚才的例子，会想复制一个新对象，再在新对象上做修改，这无疑会造成更多的性能问题以及内存浪费。  为了解决这种问题，出现了immutable对象，每次修改immutable对象都会创建一个新的不可变对象，而老的对象不会改变。<br><br><h3 id="2.2">immutable.js介绍</h3><br>immutable.js主要有三大特性：<br><br><em> Persistent data structure （持久化数据结构）<br>  一般听到持久化，在编程中第一反应应该是，数据存在某个地方，需要用到的时候就能从这个地方拿出来直接使用<br>  但这里说的持久化是另一个意思，用来描述一种数据结构，一般函数式编程中非常常见，指一个数据，在被修改时，仍然能够保持修改前的状态，从本质来说，这种数据类型就是不可变类型，也就是immutable<br>  immutable.js提供了十余种不可变的类型（List，Map，Set，Seq，Collection，Range等）
+</em> structural sharing （结构共享）<br>  immutable使用先进的tries(字典树)技术实现结构共享来解决性能问题，当我们对一个Immutable对象进行操作的时候，ImmutableJS会只clone该节点以及它的祖先节点，其他保持不变，这样可以共享相同的部分，大大提高性能。<br>* support lazy operation  （惰性操作）<br>  这里有一个新的数据类型Seq，它有跟原生js类似的方法，但是性能却远远优于原生js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Immutable.Seq.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>).filter(<span class="function"><span class="params">x</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Immutable执行'</span>)</span><br><span class="line">  <span class="keyword">return</span> x%<span class="number">2</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>].filter(<span class="function"><span class="params">x</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'原生js执行'</span>)</span><br><span class="line">  <span class="keyword">return</span> x%<span class="number">2</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br><br>  结果是上面的只执行3次，下面的代码执行了8次。<br>  那么对于高频率的大量数据处理，这就意味着性能的优化。<br><br><h3 id="2.3">immutable.js的优缺点</h3>
+
+<p>优点</p>
+<ul>
+<li>降低mutable带来的复杂度，甚至可以省略loadsh或者underscore的引入</li>
+<li>节省内存</li>
+<li>历史追溯性（时间旅行）：时间旅行指的是，每时每刻的值都被保留了，想回退到哪一步只要简单的将数据取出就行，想一下如果现在页面有个撤销的操作，撤销前的数据被保留了，只需要取出就行，这个特性在redux或者flux中特别有用</li>
+<li>拥抱函数式编程：immutable本来就是函数式编程的概念，纯函数式编程的特点就是，只要输入一致，输出必然一致，相比于面向对象，这样开发组件和调试更方便</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>需要重新学习api</li>
+<li>容易与原生对象混淆：由于api与原生不同，混用的话容易出错。</li>
+</ul>
+<p></p><h2 id="3">二.react+redux中集成immutable.js实践</h2><p></p>
+<h3 id="3.1">为什么要使用redux中集成immutable</h3>
+
+<p>  React有一个奇怪的令人发指的特性，当一个组件更新的时候，他的子组件或者父组件都会发生更新，可能你只是修改了一个单选钮的样式，但是牵一发动全身，可能变化的是100个组件，所以react有个重要的性能优化的点就是shouldComponentUpdate。z爱这个生命周期钩子中，需要对数据进行比较，如果数据很大，层次很深，靠原生JS方法逐层比较，可能已经吐了，但是immutable.js,超级简。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a===b</span><br></pre></td></tr></table></figure></p>
+<h3 id="3.2">明确边界</h3>
+
+<ul>
+<li>在redux中，全局state必须是immutable的，这点毋庸置疑是我们使用immutable来优化redux的核心</li>
+<li>组件props是通过redux的connect从state中获得的，并且引入immutableJS的另一个目的是减少组件shouldComponentUpdate中不必要渲染，shouldComponentUpdate中比对的是props，如果props是原生JS就失去了优化的意义</li>
+<li>组件内部state如果需要提交到store的，必须是immutable，否则不强制</li>
+<li>view提交到action中的数据必须是immutable</li>
+<li>Action提交到reducer中的数据必须是immutable</li>
+<li>reducer中最终处理state必须是以immutable的形式处理并返回</li>
+<li>与服务端ajax交互中返回的callback统一封装，第一时间转换成immutable数据</li>
+</ul>
+<p>  你体验过绝望么，只要你选择了immutable.js，对不起请忘记原生js，不然你写项目的时候可能就凉凉了。</p>
+<p></p><h3 id="3.3">具体注入方案</h3><br>  redux中，第一步肯定利用combineReducers来合并reducer并初始化state，redux自带的combineReducers只支持state是原生js形式的，所以这里我们需要使用redux-immutable提供的combineReducers来替换原来的方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;combineReducers&#125; <span class="keyword">from</span> <span class="string">'redux-immutable'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;reducer <span class="keyword">as</span> shop&#125; <span class="keyword">from</span> <span class="string">'./shop'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;reducer <span class="keyword">as</span> cart&#125; <span class="keyword">from</span> <span class="string">'./cart'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;reducer <span class="keyword">as</span> news&#125; <span class="keyword">from</span> <span class="string">'./news'</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> rootReducer = combineReducers(&#123;</span><br><span class="line">    shop,</span><br><span class="line">    cart,</span><br><span class="line">    news,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p></p>
+<p>  reducer中的initialState肯定也需要初始化成immutable类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultState = &#123;</span><br><span class="line">    products : Immutable.Map(&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (state = defaultState, action) =&gt; &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> SET_ERROR:</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p></p><h2 id="4">三. 总结</h2><br>  总的来说immutable.js的出现解决了许多原生js的痛点，并且自身对性能方面做了许多的优化处理，而且immuable.js作为和react同期推出的一个产品，完美的契合了react+redux的state流处理，redux的宗旨就是单一数据流，可追溯，这两点恰恰是immutable.js的优势，自然水到渠成，何乐而不为。<br>  当然也不是所有使用react+redux的场景都需要使用immutable.js，建议满足项目足够大，state结构足够复杂的原则，小项目可以手动处理shouldComponentUpdate，不建议使用，得不偿失。<p></p>
+
       
     </div>
     
     
     
 
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qcode.jpg" alt="Maybe wechat" style="width: 200px; max-width: 100%;"/>
+    <div>关注公众号 胡二闹全球粉丝团</div>
+</div>
+
+      </div>
     
 
     
@@ -401,181 +434,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/socket-io实现信息推送/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maybe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="胡二闹的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/socket-io实现信息推送/" itemprop="url">socket.io实现信息推送</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T21:14:52+08:00">
-                2018-11-01
-              </time>
+              <a href="/2018/11/01/socket-io实现信息推送/" rel="next" title="socket.io实现信息推送">
+                <i class="fa fa-chevron-left"></i> socket.io实现信息推送
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/01/socket-io实现信息推送/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/01/socket-io实现信息推送/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/11/01/socket-io实现信息推送/" class="leancloud_visitors" data-flag-title="socket.io实现信息推送">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          WebSocket是html5新增加的一种通信协议，目前流行的浏览器都支持这个协。但是今天的主角socket.io将Websocket和轮询 （Polling）机制以及其它的实时通信方式封装成了通用的接口，并且在服务端实现了这些实时机制的相应代码。相比较之下，使用它做实时，双向和基于事件的通信更加方
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/01/socket-io实现信息推送/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -585,353 +465,25 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maybe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="胡二闹的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/" itemprop="url">使用 Hexo 搭建属于自己的博客（二）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-05T13:10:49+08:00">
-                2018-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo-搭建博客/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo 搭建博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/" class="leancloud_visitors" data-flag-title="使用 Hexo 搭建属于自己的博客（二）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          从入门到入土，使用next主题打造一个狂拽炫酷吊炸天的个人博客，顺便po一下自己在搭建过程中遇到一些的问题和爬坑过程。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maybe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="胡二闹的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/" itemprop="url">使用 Hexo 搭建属于自己的博客（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-30T14:40:32+08:00">
-                2018-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo-搭建博客/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo 搭建博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/" class="leancloud_visitors" data-flag-title="使用 Hexo 搭建属于自己的博客（一）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
   
 
 
-          </div>
-          
-
-
-          
 
         </div>
         
@@ -952,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1054,6 +615,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">一.immutable.js介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1"><span class="nav-number">2.1.</span> <span class="nav-text">原生js在redux中处理数据的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2"><span class="nav-number">2.2.</span> <span class="nav-text">immutable.js介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.3"><span class="nav-number">2.3.</span> <span class="nav-text">immutable.js的优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">二.react+redux中集成immutable.js实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3.1"><span class="nav-number">3.1.</span> <span class="nav-text">为什么要使用redux中集成immutable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.2"><span class="nav-number">3.2.</span> <span class="nav-text">明确边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.3"><span class="nav-number">3.3.</span> <span class="nav-text">具体注入方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">三. 总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1202,6 +779,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
