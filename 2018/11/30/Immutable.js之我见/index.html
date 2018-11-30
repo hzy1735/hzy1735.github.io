@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="胡二闹的博客">
 <meta property="og:description" content="前言&amp;emsp;&amp;emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。 一.immutable.js介绍 原生js在redux中处理数据的坑&amp;emsp;&amp;emsp;前两天在处理购物车的redux逻辑的时候，遇到一个问题，全选反选的功能和逻辑没有问题，改变后的数据在reducer中打印">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-30T07:57:00.207Z">
+<meta property="og:updated_time" content="2018-11-30T08:16:52.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Immutable.js之我见">
 <meta name="twitter:description" content="前言&amp;emsp;&amp;emsp;本文主要介绍facebook推出的一个类库immutable.js，以及如何将immutable.js集成到我现有的react+redux架构的移动端项目中。 一.immutable.js介绍 原生js在redux中处理数据的坑&amp;emsp;&amp;emsp;前两天在处理购物车的redux逻辑的时候，遇到一个问题，全选反选的功能和逻辑没有问题，改变后的数据在reducer中打印">
@@ -409,6 +409,7 @@
 <p>  reducer中的initialState肯定也需要初始化成immutable类型</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultState = &#123;</span><br><span class="line">    products : Immutable.Map(&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (state = defaultState, action) =&gt; &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> SET_ERROR:</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p></p><h2 id="4">三. 总结</h2><br>  总的来说immutable.js的出现解决了许多原生js的痛点，并且自身对性能方面做了许多的优化处理，而且immuable.js作为和react同期推出的一个产品，完美的契合了react+redux的state流处理，redux的宗旨就是单一数据流，可追溯，这两点恰恰是immutable.js的优势，自然水到渠成，何乐而不为。<br>  当然也不是所有使用react+redux的场景都需要使用immutable.js，建议满足项目足够大，state结构足够复杂的原则，小项目可以手动处理shouldComponentUpdate，不建议使用，得不偿失。<p></p>
+<p><a href="https://juejin.im/post/5948985ea0bb9f006bed7472?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">借鉴于big old</a></p>
 
       
     </div>
@@ -450,6 +451,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/30/test/" rel="prev" title="test">
+                test <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -533,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

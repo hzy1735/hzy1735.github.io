@@ -378,10 +378,10 @@
 
 <ol>
 <li><p>使用express自动生成一个后台文件目录(前提是你已经安装了(express),我习惯用ejs模板，虽然后面用不到。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">express --view=ejs</span><br></pre></td></tr></table></figure>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">express</span> --<span class="built_in">view</span>=ejs</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>安装 socket.io，友情提示请在网络质量良好的情况下进行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add socket.io</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn <span class="keyword">add</span><span class="bash"> socket.io</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="2">起步</h2>
@@ -391,31 +391,31 @@
 <li><p>由于官网上提供的案例跟我的需求出入，请求的是后端资源。我的项目是前后端分离部署，后台数据更新后，给用户使用的移动端数据进行更新推送。我让后台和移动端项目同时去监听另外一个接口，通过这个接口作为一个桥梁，实现前后端通信。</p>
 </li>
 <li><p>后端初始化，启动一个本地服务器，端口号为9002 (这个端口应该没人用吧~)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var server = require(&apos;http&apos;).createServer();</span><br><span class="line">var io = require(&apos;socket.io&apos;)(server);</span><br><span class="line">server.listen(9002);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).createServer();</span><br><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server);</span><br><span class="line">server.listen(<span class="number">9002</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>前端初始化，引入socket.io 的js 文件，然后创建一个io对象，这个对象也监听着本地的9002端口。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">var socket = io(&apos;http://localhost:9002&apos;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="keyword">var</span> socket = io(<span class="string">'http://localhost:9002'</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="3">实现通信</h2>
 
 <ol>
 <li><p>后端通过监听socket.io 提供的事件，监听用户的状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//用户连接</span><br><span class="line">io.on(&apos;connection&apos;, function(socket)&#123;</span><br><span class="line">  console.log(&apos;a user connected&apos;);</span><br><span class="line"></span><br><span class="line">  //用户断开连接</span><br><span class="line">  socket.on(&apos;disconnect&apos;, function()&#123;</span><br><span class="line">    console.log(&apos;user disconnected&apos;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用户连接</span></span><br><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'a user connected'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//用户断开连接</span></span><br><span class="line">  socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'user disconnected'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>通过监听自定义事件，实现通信</p>
 </li>
 </ol>
 <ul>
 <li><p>前端，定义事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.emit(&apos;chat message&apos;, &quot;hello world&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">socket</span><span class="selector-class">.emit</span>(<span class="string">'chat message'</span>, <span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>后台，捕获事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">io.on(&apos;connection&apos;, function(socket)&#123;</span><br><span class="line">  //监听前端chat message事件，如果触发，就在后台打印传递的msg</span><br><span class="line">  socket.on(&apos;chat message&apos;, function(msg)&#123;</span><br><span class="line">    console.log(&apos;message: &apos; + msg);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//监听前端chat message事件，如果触发，就在后台打印传递的msg</span></span><br><span class="line">  socket.on(<span class="string">'chat message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'message: '</span> + msg);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ol start="3">
-<li>广播,可以给除了本人外的所有人发送一条信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">io.on(&apos;connection&apos;，function(socket) &#123; </span><br><span class="line">  socket.broadcast.emit(&apos;hi&apos;); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<li>广播,可以给除了本人外的所有人发送一条信息<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">io</span>.on(<span class="string">'connection'</span>，<span class="function"><span class="keyword">function</span><span class="params">(socket)</span></span> &#123; </span><br><span class="line">  socket.broadcast.emit(<span class="string">'hi'</span>); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>ok,新技能get！<br>撸代码了😭</p>
@@ -547,7 +547,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
