@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;Redux 是 JavaScript 状态容器，提供可预测化的状态管理。不仅可以让你构建一致化的应用，还提供超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。Redux 由 Flux 演变而来，但受 Elm 的启发，避开了 Flux 的复杂性。 不管你有没有使用过它们，只需几分钟就能上手 Redux。&amp;emsp;&amp;emsp;但是就是这么个玩意，源代码竟然只有短短6">
+<meta name="keywords" content="Redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听我吹逼之Redux 源码解读">
+<meta property="og:url" content="http://yoursite.com/2018/12/02/Redux 源码解读/index.html">
+<meta property="og:site_name" content="胡二闹的博客">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;Redux 是 JavaScript 状态容器，提供可预测化的状态管理。不仅可以让你构建一致化的应用，还提供超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。Redux 由 Flux 演变而来，但受 Elm 的启发，避开了 Flux 的复杂性。 不管你有没有使用过它们，只需几分钟就能上手 Redux。&amp;emsp;&amp;emsp;但是就是这么个玩意，源代码竟然只有短短6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-02T15:35:44.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="听我吹逼之Redux 源码解读">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;Redux 是 JavaScript 状态容器，提供可预测化的状态管理。不仅可以让你构建一致化的应用，还提供超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。Redux 由 Flux 演变而来，但受 Elm 的启发，避开了 Flux 的复杂性。 不管你有没有使用过它们，只需几分钟就能上手 Redux。&amp;emsp;&amp;emsp;但是就是这么个玩意，源代码竟然只有短短6">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/02/Redux 源码解读/">
+
+
+
+
+
+  <title>听我吹逼之Redux 源码解读 | 胡二闹的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胡二闹的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">call me Maybe</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简介
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/Redux 源码解读/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maybe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胡二闹的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">听我吹逼之Redux 源码解读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-02T18:17:38+08:00">
+                2018-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/02/Redux 源码解读/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/02/Redux 源码解读/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/02/Redux 源码解读/" class="leancloud_visitors" data-flag-title="听我吹逼之Redux 源码解读">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;Redux 是 JavaScript 状态容器，提供可预测化的状态管理。不仅可以让你构建一致化的应用，还提供超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。Redux 由 Flux 演变而来，但受 Elm 的启发，避开了 Flux 的复杂性。 不管你有没有使用过它们，只需几分钟就能上手 Redux。<br>&emsp;&emsp;但是就是这么个玩意，源代码竟然只有短短600行，今天就带你一层一层褪去她的衣物，满足你最原始的冲动。系好安全带，老司机要发车了！！！</p>
+<p></p><h2 id="1">入口文件解读</h2><br>&emsp;&emsp;看源码最简单的方式，就是从入口文件来看，看它依赖哪些模块，然后在依次看这些模块的内容，最后也就对整个代码有个清晰的认识了。<p></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> createStore <span class="keyword">from</span> <span class="string">'./createStore'</span></span><br><span class="line"><span class="keyword">import</span> combineReducers <span class="keyword">from</span> <span class="string">'./combineReducers'</span></span><br><span class="line"><span class="keyword">import</span> bindActionCreators <span class="keyword">from</span> <span class="string">'./bindActionCreators'</span></span><br><span class="line"><span class="keyword">import</span> applyMiddleware <span class="keyword">from</span> <span class="string">'./applyMiddleware'</span></span><br><span class="line"><span class="keyword">import</span> compose <span class="keyword">from</span> <span class="string">'./compose'</span></span><br><span class="line"><span class="keyword">import</span> warning <span class="keyword">from</span> <span class="string">'./utils/warning'</span></span><br><span class="line"><span class="keyword">import</span> __DO_NOT_USE__ActionTypes <span class="keyword">from</span> <span class="string">'./utils/actionTypes'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * This is a dummy function to check if the function name has been altered by minification.</span></span><br><span class="line"><span class="comment"> * If the function has been minified and NODE_ENV !== 'production', warn the user.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 就是根据 isCrushed 是否被压缩了，来警告开发者正在非生产环境使用一个压缩过的代码。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isCrushed</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (</span><br><span class="line">  process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> isCrushed.name === <span class="string">'string'</span> &amp;&amp;</span><br><span class="line">  isCrushed.name !== <span class="string">'isCrushed'</span></span><br><span class="line">) &#123;</span><br><span class="line">  warning(</span><br><span class="line">    <span class="string">'You are currently using minified code outside of NODE_ENV === "production". '</span> +</span><br><span class="line">      <span class="string">'This means that you are running a slower development build of Redux. '</span> +</span><br><span class="line">      <span class="string">'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify '</span> +</span><br><span class="line">      <span class="string">'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) '</span> +</span><br><span class="line">      <span class="string">'to ensure you have the correct code for your production build.'</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">  createStore,</span><br><span class="line">  combineReducers,</span><br><span class="line">  bindActionCreators,</span><br><span class="line">  applyMiddleware,</span><br><span class="line">  compose,</span><br><span class="line">  __DO_NOT_USE__ActionTypes</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显这个入口文件就是将这些模块引入后然后直接暴露出去。整个Redux就是依赖这些模块，其中几个也是老面孔了。</p>
+<ul>
+<li>createStore</li>
+<li>combineReducers</li>
+<li>bindActionCreators</li>
+<li>applyMiddleware</li>
+<li>compose</li>
+<li>warning</li>
+</ul>
+<p></p><h2 id="2">createStore</h2><br>这个模块每次都在使用，用来创建整个应用的store。<p></p>
+<blockquote>
+<p>import { createStore } from ‘redux’<br>let store = createStore(reducers)</p>
+</blockquote>
+<p>这个模块依赖的都是一些工具函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ActionTypes <span class="keyword">from</span> <span class="string">'./utils/actionTypes'</span></span><br><span class="line"><span class="keyword">import</span> isPlainObject <span class="keyword">from</span> <span class="string">'./utils/isPlainObject'</span></span><br></pre></td></tr></table></figure></p>
+<p>ActionTypes的源码<br>主要生成一个随机字符串，用来初始化每个reducer的命名<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> randomString = <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">  <span class="built_in">Math</span>.random()</span><br><span class="line">    .toString(<span class="number">36</span>)</span><br><span class="line">    .substring(<span class="number">7</span>)</span><br><span class="line">    .split(<span class="string">''</span>)</span><br><span class="line">    .join(<span class="string">'.'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ActionTypes = &#123;</span><br><span class="line">  INIT: <span class="string">`@@redux/INIT<span class="subst">$&#123;randomString()&#125;</span>`</span>,</span><br><span class="line">  REPLACE: <span class="string">`@@redux/REPLACE<span class="subst">$&#123;randomString()&#125;</span>`</span>,</span><br><span class="line">  PROBE_UNKNOWN_ACTION: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">`@@redux/PROBE_UNKNOWN_ACTION<span class="subst">$&#123;randomString()&#125;</span>`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ActionTypes</span><br></pre></td></tr></table></figure></p>
+<p>isPlainObject的源码<br>主要用来判断是否为一个字面量的对象，用来判断state是否有效。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">isPlainObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> obj !== <span class="string">'object'</span> || obj === <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> proto = obj</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">Object</span>.getPrototypeOf(proto) !== <span class="literal">null</span>) &#123;</span><br><span class="line">    proto = <span class="built_in">Object</span>.getPrototypeOf(proto)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.getPrototypeOf(obj) === proto</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>createStore的源码主要实现了5个方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, preloadedState, enhancer</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">        (<span class="keyword">typeof</span> preloadedState === <span class="string">'function'</span> &amp;&amp; <span class="keyword">typeof</span> enhancer === <span class="string">'function'</span>) ||</span><br><span class="line">        (<span class="keyword">typeof</span> enhancer === <span class="string">'function'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">3</span>] === <span class="string">'function'</span>)</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'It looks like you are passing several store enhancers to '</span> +</span><br><span class="line">            <span class="string">'createStore(). This is not supported. Instead, compose them '</span> +</span><br><span class="line">            <span class="string">'together to a single function'</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> preloadedState === <span class="string">'function'</span> &amp;&amp; <span class="keyword">typeof</span> enhancer === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">        enhancer = preloadedState</span><br><span class="line">        preloadedState = <span class="literal">undefined</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the enhancer to be a function.'</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> enhancer(createStore)(reducer, preloadedState)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> reducer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the reducer to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//somethings</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        dispatch,</span><br><span class="line">        subscribe,</span><br><span class="line">        getState,</span><br><span class="line">        replaceReducer,</span><br><span class="line">        [$$observable]: observable</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<ul>
+<li>reducer： reducer必须是一个function类型，此方法根据action.type更新state</li>
+<li>preloadedState： store tree初始值</li>
+<li>enhancer： enhancer通过添加middleware，增强store功能</li>
+</ul>
+<p>实现方法</p>
+<ul>
+<li>dispatch：分发action</li>
+<li>subscribe：注册listener，监听state变化</li>
+<li>getState：读取store tree中所有state</li>
+<li>replaceReucer：替换reducer，改变state更新逻辑</li>
+<li>[$$observable] 让变量可观察。一般情况下用不到，用到了我也不背锅哦</li>
+</ul>
+<p>第一个 if 语句的意思就是说，如果只传入了两个参数，且第二个参数 preloadedState 为函数，那么就认为第二个参数为 enhancer .</p>
+<p>第二个 if 语句确保 enhancer 是一个函数，并且当 enhancer 作为参数传入的时候，返回 enhancer(createStore)(reucer, preloadedState) 作为 createStore 的返回，也就是我们要的 store.</p>
+<p>第三个 if 语句确保 reducer 是一个函数。</p>
+<p>接下来解读每个方法的具体实现。</p>
+<h3 id="2.1">getState</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getState</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isDispatching) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'You may not call store.getState() while the reducer is executing. '</span> +</span><br><span class="line">          <span class="string">'The reducer has already received the state as an argument. '</span> +</span><br><span class="line">          <span class="string">'Pass it down from the top reducer instead of reading it from the store.'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> currentState</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数可以获取当前的状态，createStore 中的 currentState 储存当前的状态树，这是一个闭包，这个参数会持久存在，并且所有的操作状态都是改变这个引用，getState 函数返回当前的 currentState。如果当前状态不存在，可能是没有返回初始化的state，会报错。</p>
+<h3 id="2.2">subscribe</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">listener</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> listener !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the listener to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isDispatching) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'You may not call store.subscribe() while the reducer is executing. '</span> +</span><br><span class="line">          <span class="string">'If you would like to be notified after the store has been updated, subscribe from a '</span> +</span><br><span class="line">          <span class="string">'component and invoke store.getState() in the callback to access the latest state. '</span> +</span><br><span class="line">          <span class="string">'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> isSubscribed = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    ensureCanMutateNextListeners()</span><br><span class="line">    nextListeners.push(listener)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">unsubscribe</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!isSubscribed) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isDispatching) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">          <span class="string">'You may not unsubscribe from a store listener while the reducer is executing. '</span> +</span><br><span class="line">            <span class="string">'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.'</span></span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      isSubscribed = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">      ensureCanMutateNextListeners()</span><br><span class="line">      <span class="keyword">const</span> index = nextListeners.indexOf(listener)</span><br><span class="line">      nextListeners.splice(index, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我省略了一堆注释，其实那一大段注释已经说的很明显了，注册一个 listener 监听函数，把他 push 到当前的监听里列表 nextListener 里面，并返回一个 unsubscribe 方法用来注销当前这个监听函数。之前版本还没有执行的时候销毁会报错，现在已经修改了。</p>
+<h3 id="2.3">dispatch</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isPlainObject(action)) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'Actions must be plain objects. '</span> +</span><br><span class="line">          <span class="string">'Use custom middleware for async actions.'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action.type === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">'Actions may not have an undefined "type" property. '</span> +</span><br><span class="line">          <span class="string">'Have you misspelled a constant?'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isDispatching) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Reducers may not dispatch actions.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      isDispatching = <span class="literal">true</span></span><br><span class="line">      currentState = currentReducer(currentState, action)</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      isDispatching = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> listeners = (currentListeners = nextListeners)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; listeners.length; i++) &#123;</span><br><span class="line">      <span class="keyword">const</span> listener = listeners[i]</span><br><span class="line">      listener()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> action</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>dispatch用来分发一个 action 来改变当前的 state . 也是唯一的改变 state 的方法。接受一个用来描述动作的 action 为参数，并且把这个 action 作为函数的返回值。<br>从代码前面的判断可以看到，action 必须是一个字面量对象，并且必须包含一个 type 的属性。</p>
+<p>当isDispatching为真的时候开始触发函数，这里的 currentReducer 是一个函数，他接受两个参数：当前状态 和 action，然后返回计算出来的新的状态；<br>然后遍历 nextListeners 列表，调用每个监听函数；</p>
+<h3 id="2.4">replaceReducer</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">replaceReducer</span>(<span class="params">nextReducer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> nextReducer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the nextReducer to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    currentReducer = nextReducer</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: ActionTypes.REPLACE &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数可以替换 store 当前的 reducer 函数，首先直接把 currentReducer = nextReducer，直接替换；<br>然后 dispatch({ type: ActionTypes.INIT }) ，用来初始化替换后 reducer 生成的初始化状态并且赋予 store 的状态；</p>
+<h3 id="2.5">observable</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observable</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> outerSubscribe = subscribe</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * The minimal observable subscription method.</span></span><br><span class="line"><span class="comment">       * @param &#123;Object&#125; observer Any object that can be used as an observer.</span></span><br><span class="line"><span class="comment">       * The observer object should have a `next` method.</span></span><br><span class="line"><span class="comment">       * @returns &#123;subscription&#125; An object with an `unsubscribe` method that can</span></span><br><span class="line"><span class="comment">       * be used to unsubscribe the observable from the store, and prevent further</span></span><br><span class="line"><span class="comment">       * emission of values from the observable.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      subscribe(observer) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> observer !== <span class="string">'object'</span> || observer === <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Expected the observer to be an object.'</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">observeState</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (observer.next) &#123;</span><br><span class="line">            observer.next(getState())</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        observeState()</span><br><span class="line">        <span class="keyword">const</span> unsubscribe = outerSubscribe(observeState)</span><br><span class="line">        <span class="keyword">return</span> &#123; unsubscribe &#125;</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      [$$observable]() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于这个函数，是不直接暴露给开发者的，它提供了给其他观察者模式／响应式库的交互操作，具体可看<br><a href="https://github.com/zenparsing/es-observable" target="_blank" rel="noopener">https://github.com/zenparsing/es-observable</a></p>
+<p>最后执行 dispatch({ type: ActionTypes.INIT })，用来根据 reducer 初始化 store 的状态。</p>
+<p></p><h2 id="3">combineReducers</h2><br>这个模块用来合并多个 reducers 到一个 reducer,一般我们会在store的reducers.js文件夹合并reducer<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; reducer <span class="keyword">as</span> home &#125; <span class="keyword">from</span> <span class="string">'pages/home'</span></span><br><span class="line"><span class="keyword">import</span> &#123; reducer <span class="keyword">as</span> news &#125; <span class="keyword">from</span> <span class="string">'pages/news'</span></span><br><span class="line"><span class="keyword">import</span> &#123; reducer <span class="keyword">as</span> cart &#125; <span class="keyword">from</span> <span class="string">'pages/cart'</span></span><br><span class="line"><span class="keyword">import</span> &#123; reducer <span class="keyword">as</span> shop &#125; <span class="keyword">from</span> <span class="string">'pages/shop'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> combineReducers(&#123;</span><br><span class="line">  home,</span><br><span class="line">  news,</span><br><span class="line">  cart,</span><br><span class="line">  shop</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p></p>
+<p>这个模块中主要实现了三个方法</p>
+<h3 id="3.1">getUndefinedStateErrorMessage</h3><br>听他的名字就知道了 获得未定义状态的错误信息<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUndefinedStateErrorMessage</span>(<span class="params">key, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> actionType = action &amp;&amp; action.type</span><br><span class="line">  <span class="keyword">const</span> actionDescription =</span><br><span class="line">    (actionType &amp;&amp; <span class="string">`action "<span class="subst">$&#123;<span class="built_in">String</span>(actionType)&#125;</span>"`</span>) || <span class="string">'an action'</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="string">`Given <span class="subst">$&#123;actionDescription&#125;</span>, reducer "<span class="subst">$&#123;key&#125;</span>" returned undefined. `</span> +</span><br><span class="line">    <span class="string">`To ignore an action, you must explicitly return the previous state. `</span> +</span><br><span class="line">    <span class="string">`If you want this reducer to hold no value, you can return null instead of undefined.`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><h3 id="3.2">getUnexpectedStateShapeWarningMessage</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUnexpectedStateShapeWarningMessage</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  inputState,</span></span></span><br><span class="line"><span class="function"><span class="params">  reducers,</span></span></span><br><span class="line"><span class="function"><span class="params">  action,</span></span></span><br><span class="line"><span class="function"><span class="params">  unexpectedKeyCache</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> reducerKeys = <span class="built_in">Object</span>.keys(reducers)</span><br><span class="line">  <span class="keyword">const</span> argumentName =</span><br><span class="line">    action &amp;&amp; action.type === ActionTypes.INIT</span><br><span class="line">      ? <span class="string">'preloadedState argument passed to createStore'</span></span><br><span class="line">      : <span class="string">'previous state received by the reducer'</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (reducerKeys.length === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">'Store does not have a valid reducer. Make sure the argument passed '</span> +</span><br><span class="line">      <span class="string">'to combineReducers is an object whose values are reducers.'</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!isPlainObject(inputState)) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">`The <span class="subst">$&#123;argumentName&#125;</span> has unexpected type of "`</span> +</span><br><span class="line">      &#123;&#125;.toString.call(inputState).match(<span class="regexp">/\s([a-z|A-Z]+)/</span>)[<span class="number">1</span>] +</span><br><span class="line">      <span class="string">`". Expected argument to be an object with the following `</span> +</span><br><span class="line">      <span class="string">`keys: "<span class="subst">$&#123;reducerKeys.join(<span class="string">'", "'</span>)&#125;</span>"`</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> unexpectedKeys = <span class="built_in">Object</span>.keys(inputState).filter(</span><br><span class="line">    key =&gt; !reducers.hasOwnProperty(key) &amp;&amp; !unexpectedKeyCache[key]</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  unexpectedKeys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    unexpectedKeyCache[key] = <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (action &amp;&amp; action.type === ActionTypes.REPLACE) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (unexpectedKeys.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">`Unexpected <span class="subst">$&#123;unexpectedKeys.length &gt; <span class="number">1</span> ? <span class="string">'keys'</span> : <span class="string">'key'</span>&#125;</span> `</span> +</span><br><span class="line">      <span class="string">`"<span class="subst">$&#123;unexpectedKeys.join(<span class="string">'", "'</span>)&#125;</span>" found in <span class="subst">$&#123;argumentName&#125;</span>. `</span> +</span><br><span class="line">      <span class="string">`Expected to find one of the known reducer keys instead: `</span> +</span><br><span class="line">      <span class="string">`"<span class="subst">$&#123;reducerKeys.join(<span class="string">'", "'</span>)&#125;</span>". Unexpected keys will be ignored.`</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个更长的名字更好理解了 获得不期望的状态类型警告报告,说明输入的state就不是一个字面量对象或者结构不对。且inputState 的 key 都应该在 reducer 的自身属性（OwnProperty, 非原型链上的）中，并且不能在传入的 unexpectedKeyCache 中。</p>
+<h3 id="3.3">assertReducerShape</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertReducerShape</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.keys(reducers).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> reducer = reducers[key]</span><br><span class="line">    <span class="keyword">const</span> initialState = reducer(<span class="literal">undefined</span>, &#123; <span class="attr">type</span>: ActionTypes.INIT &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> initialState === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Reducer "<span class="subst">$&#123;key&#125;</span>" returned undefined during initialization. `</span> +</span><br><span class="line">          <span class="string">`If the state passed to the reducer is undefined, you must `</span> +</span><br><span class="line">          <span class="string">`explicitly return the initial state. The initial state may `</span> +</span><br><span class="line">          <span class="string">`not be undefined. If you don't want to set a value for this reducer, `</span> +</span><br><span class="line">          <span class="string">`you can use null instead of undefined.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      <span class="keyword">typeof</span> reducer(<span class="literal">undefined</span>, &#123;</span><br><span class="line">        type: ActionTypes.PROBE_UNKNOWN_ACTION()</span><br><span class="line">      &#125;) === <span class="string">'undefined'</span></span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Reducer "<span class="subst">$&#123;key&#125;</span>" returned undefined when probed with a random type. `</span> +</span><br><span class="line">          <span class="string">`Don't try to handle <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">            ActionTypes.INIT</span></span></span><br><span class="line"><span class="string"><span class="subst">          &#125;</span> or other actions in "redux/*" `</span> +</span><br><span class="line">          <span class="string">`namespace. They are considered private. Instead, you must return the `</span> +</span><br><span class="line">          <span class="string">`current state for any unknown actions, unless it is undefined, `</span> +</span><br><span class="line">          <span class="string">`in which case you must return the initial state, regardless of the `</span> +</span><br><span class="line">          <span class="string">`action type. The initial state may not be undefined, but can be null.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用来保证传入的 reducers 的结构正确，也就说说每个 reducer 都必须在收到 INIT action 后返回一个不为 undefined 的 initState ，并且这个 action 不能在 reducer 中专门去处理。这也是为什么我们在 reducer 里面一定要指定默认返回的 state 的原因.</p>
+<h3 id="3.4">combineReducers</h3>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">combineReducers</span>(<span class="params">reducers</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> reducerKeys = <span class="built_in">Object</span>.keys(reducers)</span><br><span class="line">  <span class="keyword">const</span> finalReducers = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; reducerKeys.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> key = reducerKeys[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> reducers[key] === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">        warning(<span class="string">`No reducer provided for key "<span class="subst">$&#123;key&#125;</span>"`</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> reducers[key] === <span class="string">'function'</span>) &#123;</span><br><span class="line">      finalReducers[key] = reducers[key]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> finalReducerKeys = <span class="built_in">Object</span>.keys(finalReducers)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> unexpectedKeyCache</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">    unexpectedKeyCache = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> shapeAssertionError</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    assertReducerShape(finalReducers)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    shapeAssertionError = e</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">combination</span>(<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (shapeAssertionError) &#123;</span><br><span class="line">      <span class="keyword">throw</span> shapeAssertionError</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> warningMessage = getUnexpectedStateShapeWarningMessage(</span><br><span class="line">        state,</span><br><span class="line">        finalReducers,</span><br><span class="line">        action,</span><br><span class="line">        unexpectedKeyCache</span><br><span class="line">      )</span><br><span class="line">      <span class="keyword">if</span> (warningMessage) &#123;</span><br><span class="line">        warning(warningMessage)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> hasChanged = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">const</span> nextState = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; finalReducerKeys.length; i++) &#123;</span><br><span class="line">      <span class="keyword">const</span> key = finalReducerKeys[i]</span><br><span class="line">      <span class="keyword">const</span> reducer = finalReducers[key]</span><br><span class="line">      <span class="keyword">const</span> previousStateForKey = state[key]</span><br><span class="line">      <span class="keyword">const</span> nextStateForKey = reducer(previousStateForKey, action)</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> nextStateForKey === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> errorMessage = getUndefinedStateErrorMessage(key, action)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(errorMessage)</span><br><span class="line">      &#125;</span><br><span class="line">      nextState[key] = nextStateForKey</span><br><span class="line">      hasChanged = hasChanged || nextStateForKey !== previousStateForKey</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hasChanged ? nextState : state</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>combineReducer 接收一个用来合并成一个 reducer 的对象，执行后返回一个函数，也即是我们的 rootReducer .</p>
+<p>首先把传入的 reducers 按 key 遍历后赋值给 finalReducers . 然后进行一堆错误判断，最后返回一个函数 combination. 也就是合并后的 reducer .</p>
+<p></p><h2 id="4">总结</h2><br>&emps;&emps;今天先看着两个，卧槽，看源码太烧脑了，我为什么要装这个逼，头发都掉没了， 先去搞点腰子补一补，骚年，我先撤了，后面的代码未完待续~<p></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qcode.jpg" alt="Maybe wechat" style="width: 200px; max-width: 100%;">
+    <div>关注公众号 胡二闹全球粉丝团</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redux/" rel="tag"># Redux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/02/Immutable 常用方法/" rel="next" title="Immutable 常用方法">
+                <i class="fa fa-chevron-left"></i> Immutable 常用方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="Maybe">
+            
+              <p class="site-author-name" itemprop="name">Maybe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hzy1735" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/5275146705/home" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+            <div id="music163player">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="https://music.163.com/outchain/player?type=2&id=5308028&auto=0&height=66"></iframe>
+            </div>
+          
+
+          
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-heartbeat"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/TomXu/" title="汤姆大叔" target="_blank">汤姆大叔</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bbs.nga.cn/thread.php?fid=321&_ff=321&rand=241" title="NGA玩家社区" target="_blank">NGA玩家社区</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">入口文件解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">createStore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1"><span class="nav-number">2.1.</span> <span class="nav-text">getState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2"><span class="nav-number">2.2.</span> <span class="nav-text">subscribe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.3"><span class="nav-number">2.3.</span> <span class="nav-text">dispatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.4"><span class="nav-number">2.4.</span> <span class="nav-text">replaceReducer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.5"><span class="nav-number">2.5.</span> <span class="nav-text">observable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">combineReducers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3.1"><span class="nav-number">3.1.</span> <span class="nav-text">getUndefinedStateErrorMessage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.2"><span class="nav-number">3.2.</span> <span class="nav-text">getUnexpectedStateShapeWarningMessage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.3"><span class="nav-number">3.3.</span> <span class="nav-text">assertReducerShape</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.4"><span class="nav-number">3.4.</span> <span class="nav-text">combineReducers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maybe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+</span>
+  </div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="/js/src/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '4b810adbr2sJkbPxtLHA2o6I-gzGzoHsz',
+        appKey: 'VlqAlM75jIBTDoFEO77xrbBM',
+        placeholder: '说点什么吧！',
+        avatar:'mm',
+        guest_info:['nick'] ,  //评论者只需要提供评论的昵称即可
+        pageSize:'10' || 10,
+    });
+    //增加以下六行代码去除 power by valine
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("4b810adbr2sJkbPxtLHA2o6I-gzGzoHsz", "VlqAlM75jIBTDoFEO77xrbBM");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":100,"height":150},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
