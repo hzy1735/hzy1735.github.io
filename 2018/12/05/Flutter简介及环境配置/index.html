@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Flutter,">
 
 
 
@@ -79,19 +79,30 @@
 
 
 
-<meta name="description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ 准备工作   安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申请">
+<meta name="description" content="&amp;emsp;&amp;emsp;号外！号外！在昨晚的 Flutter Live 2018 上，Google 宣布 Flutter 1.0 正式发布。今天早上一起来看见这个信息，卧槽又要开始学一门新的开发技术了。&amp;emsp;&amp;emsp;从我们首次看到 Flutter 的 Beta 测试版，到如今的 1.0 正式版，总共经过了 9个多月。  2 月底在世界移动大会 (MWC) 上发布首个 Beta 版;  5">
+<meta name="keywords" content="Flutter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Hexo 搭建属于自己的博客（一）">
-<meta property="og:url" content="http://yoursite.com/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/index.html">
+<meta property="og:title" content="Flutter简介及环境配置">
+<meta property="og:url" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/index.html">
 <meta property="og:site_name" content="胡二闹的博客">
-<meta property="og:description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ 准备工作   安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申请">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;号外！号外！在昨晚的 Flutter Live 2018 上，Google 宣布 Flutter 1.0 正式发布。今天早上一起来看见这个信息，卧槽又要开始学一门新的开发技术了。&amp;emsp;&amp;emsp;从我们首次看到 Flutter 的 Beta 测试版，到如今的 1.0 正式版，总共经过了 9个多月。  2 月底在世界移动大会 (MWC) 上发布首个 Beta 版;  5">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://images2017.cnblogs.com/blog/1108615/201710/1108615-20171021232413224-1288183746.png">
-<meta property="og:updated_time" content="2018-10-05T05:36:57.509Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/website@1.0/images/intellij/hot-reload.gif">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/flutter-h.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/JDK.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/JAVA_HOME.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/JDK_PATH.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/java-version.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/cancel.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/plugins.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/doctor.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/runok.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/05/Flutter简介及环境配置/success.png">
+<meta property="og:updated_time" content="2018-12-05T12:35:36.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 Hexo 搭建属于自己的博客（一）">
-<meta name="twitter:description" content="最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！ 准备工作   安装Node.js和配置好Node.js环境。 安装Git和配置好Git环境。 申请">
-<meta name="twitter:image" content="https://images2017.cnblogs.com/blog/1108615/201710/1108615-20171021232413224-1288183746.png">
+<meta name="twitter:title" content="Flutter简介及环境配置">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;号外！号外！在昨晚的 Flutter Live 2018 上，Google 宣布 Flutter 1.0 正式发布。今天早上一起来看见这个信息，卧槽又要开始学一门新的开发技术了。&amp;emsp;&amp;emsp;从我们首次看到 Flutter 的 Beta 测试版，到如今的 1.0 正式版，总共经过了 9个多月。  2 月底在世界移动大会 (MWC) 上发布首个 Beta 版;  5">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/flutterchina/website@1.0/images/intellij/hot-reload.gif">
 
 
 
@@ -121,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/05/Flutter简介及环境配置/">
 
 
 
 
 
-  <title>使用 Hexo 搭建属于自己的博客（一） | 胡二闹的博客</title>
+  <title>Flutter简介及环境配置 | 胡二闹的博客</title>
   
 
 
@@ -264,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Flutter简介及环境配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maybe">
@@ -281,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用 Hexo 搭建属于自己的博客（一）</h1>
+          <h1 class="post-title" itemprop="name headline">Flutter简介及环境配置</h1>
         
 
         <div class="post-meta">
@@ -293,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-30T14:40:32+08:00">
-                2018-09-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T19:34:17+08:00">
+                2018-12-05
               </time>
             
 
@@ -316,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo-搭建博客/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo 搭建博客</span>
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
                   </a>
                 </span>
 
@@ -334,8 +345,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/" itemprop="commentCount"></span>
+                <a href="/2018/12/05/Flutter简介及环境配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/05/Flutter简介及环境配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -343,7 +354,7 @@
 
           
           
-             <span id="/2018/09/30/使用 Hexo 搭建属于自己的博客（一）/" class="leancloud_visitors" data-flag-title="使用 Hexo 搭建属于自己的博客（一）">
+             <span id="/2018/12/05/Flutter简介及环境配置/" class="leancloud_visitors" data-flag-title="Flutter简介及环境配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,75 +385,89 @@
       
 
       
-        <p>最近心血来潮，突然想搞一个自己的博客，虽然很早之前按就在博客园上注册过，总感觉有那么一丢丢low。网上查了查，发现Wordpressh和Hexo都还行，都支持安装自定义主题。Wordpress需要本地的数据库和支持后台操作，相比较下Hexo更加轻量级，那就这么愉快的决定了，let’s get it！</p>
-<h2 id="1">准备工作</h2>
+        <p>&emsp;&emsp;号外！号外！在昨晚的 Flutter Live 2018 上，Google 宣布 Flutter 1.0 正式发布。今天早上一起来看见这个信息，卧槽又要开始学一门新的开发技术了。<br>&emsp;&emsp;从我们首次看到 Flutter 的 Beta 测试版，到如今的 1.0 正式版，总共经过了 9个多月。</p>
+<ul>
+<li><p>2 月底在世界移动大会 (MWC) 上发布首个 Beta 版;</p>
+</li>
+<li><p>5 月的 Google I/O 大会上发布 Beta 3 ;</p>
+</li>
+<li><p>6 月底的 GMTC 发布首个预览版；</p>
+</li>
+<li><p>9 月的谷歌者大会上，发布预览版 2；</p>
+</li>
+<li><p>12月初的 Flutter Live 2018 上，发布1.0 稳定版。</p>
+</li>
+</ul>
+<p>&emsp;&emsp;Flutter 1.0 主要聚焦于稳定性和 bug 修复，同时还包含两项新功能的预览 ——  Add to App 和 platform views。</p>
+<p>&emsp;&emsp;铺垫了这么多，可能有些同学还是不知道Flutter到底是个什么玩意。下面就是敲黑板划重点的时候了。<br>&emsp;&emsp;Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。配合Dart语言和Flutter的热重载，可帮助您快速地进行测试、构建UI、添加功能并更快地修复错误。在iOS和Android模拟器或真机上可以在亚秒内重载，并且不会丢失状态。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/website@1.0/images/intellij/hot-reload.gif" alt="asd"></p>
+<p>现在就试试Flutter，入门很简单！<a href="https://flutter.io/" target="_blank" rel="noopener">Flutter官网</a></p>
+<h2 id="1">开发环境配置</h2>
+
+<h3 id="1.1">获取Flutter SDK</h3>
 
 <ol>
-<li>安装Node.js和配置好Node.js环境。</li>
-<li>安装Git和配置好Git环境。</li>
-<li>申请github账号，后面需要将项目上传至github上，使用它的服务器上线。</li>
+<li>去flutter官网下载其最新可用的安装包<a href="https://flutter.io/sdk-archive/#windows" target="_blank" rel="noopener">点击下载</a></li>
+<li>直接在github上下载<blockquote>
+<p>git clone -b master <a href="https://github.com/flutter/flutter.git" target="_blank" rel="noopener">https://github.com/flutter/flutter.git</a></p>
+</blockquote>
+</li>
 </ol>
-<h2 id="2">安装Hexo</h2>
+<ul>
+<li>将安装包zip解压到你想安装Flutter SDK的路径（如：C:\src\flutter；注意，不要将flutter安装到需要一些高权限的路径如C:\Program Files\）。</li>
+<li>配置flutter的环境变量，讲flutter的bin文件夹的绝对路径配置到path中，在命令行中执行flutter-h ，如果出现下图，安装成功。</li>
+</ul>
+<p><img src="/2018/12/05/Flutter简介及环境配置/flutter-h.png" alt=""></p>
+<h3 id="1.2">安装JDK</h3>
 
-<ol>
-<li><p>全局安装Hexo，在自己认为合适的地方创个文件夹，在这个文件夹目录下打开命令行，执行下列代码。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查hexo是否安装成功，如果出入一大堆版本号，就是成功了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在该文件夹下初始化hexo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>看到后面的“Start blogging with Hexo！”，就代表成功咧，激不激动噻！</p>
-<ol start="4">
-<li><p>安装hexo运行所需要的组建，建议在网络好的情况下进行，不然丢包出错真的不好查。。。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑静态文件，手不要贱，等着就行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动hexo本地服务器，根据提示在浏览器中输入网址。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>如果端口号被占用，执行下列代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server -p 端口号</span><br></pre></td></tr></table></figure></p>
-<ol start="7">
-<li>如果出现下图就代表成功了<br><img src="https://images2017.cnblogs.com/blog/1108615/201710/1108615-20171021232413224-1288183746.png" alt="成功"></li>
-</ol>
-<h2 id="3">关联github</h2>
+<p>如果没有搭过JAVA环境的同学看一下，之前搭过的直接看下一步。</p>
+<ul>
+<li>去oracle网站下载就ok<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">JDK下载</a><br><img src="/2018/12/05/Flutter简介及环境配置/JDK.png" alt=""></li>
+<li>下载完成后直接安装，中途会安装jre，记住自己安装的路径。</li>
+<li>安装完成后配置环境变量。<br>新建环境变量JAVA_HOME，将jdk文件夹的路径配上去<br><img src="/2018/12/05/Flutter简介及环境配置/JAVA_HOME.png" alt=""><br>在Path后新增两天属性，将jdk文件夹中的bin 和bin下的jre路径配上。<br><img src="/2018/12/05/Flutter简介及环境配置/JDK_PATH.png" alt=""></li>
+<li>在命令行中输入java -version，出现下面的东西就是成功了。<br><img src="/2018/12/05/Flutter简介及环境配置/java-version.png" alt=""></li>
+</ul>
+<h3 id="1.3">安装Android Studio</h3>
 
-<ol>
-<li><p>确保自己使用的电脑已经有生成公钥和密钥，并且在github上已经设置好。测试连接代码如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在github上创建一个新的仓库，项目必须要遵守格式：账户名.github.io，不然不能使用它本身提供的服务器。</p>
-</li>
-<li><p>配置Deployment,在根目录下找到_config.yml文件,修改deploy，一般在文件的最后面。repository后面改成自己仓库的SSH链接地址。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:hzy1735/hzy1735.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装一个模块，用来进行自动打包提交。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>制定打包提交命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果没有error，就是部署成功了，输入http://用户名.github.io，即可浏览自己的博客了</p>
-</li>
-</ol>
-<h2 id="4">编写博客</h2>
+<ul>
+<li>开发环境需要Android Studio的一些配置，直接去官网下载即可。注意安装的时候不要有中文路径和空格，会报莫名奇妙的错！</li>
+<li>第一次启动Android Studio,会出现下图，点去cancel，进入下载依赖的环节，这时候需要科学上网，否则安装速度贼慢，网上工具多的是，干就玩事了。<br><img src="/2018/12/05/Flutter简介及环境配置/cancel.png" alt=""></li>
+<li>下载完成后，找到下图的选项，下载两个插件，Flutter和Dart<br><img src="/2018/12/05/Flutter简介及环境配置/plugins.png" alt=""></li>
+</ul>
+<h3 id="1.4">连接调试设备</h3>
 
+<ul>
+<li>可以使用真机测试</li>
+<li>可以去网上安装一些安卓模拟器，低配版雷电安卓模拟器,简单无脑，专业版Genymotion，需要一些配置，这里就不赘述了。</li>
+<li>最后执行下列命令，检测环境是否符合条件</li>
+</ul>
+<blockquote>
+<p>flutter doctor</p>
+</blockquote>
+<p>如果出现下面的命令，ok可以进行最后一步了。<br><img src="/2018/12/05/Flutter简介及环境配置/doctor.png" alt=""></p>
+<h3 id="1.5">创建项目，启动flutter！</h3>
+
+<ul>
+<li>执行创建项目的命令</li>
+</ul>
+<blockquote>
+<p>flutter create 你的项目名<br>cd 项目名<br>flutter run</p>
+</blockquote>
+<ul>
+<li>有些人第一次编译可能会很快，有些人运气不大好，可能慢很多<br>成功截图<br><img src="/2018/12/05/Flutter简介及环境配置/runok.png" alt=""></li>
+</ul>
+<p>模拟器上的截图<br><img src="/2018/12/05/Flutter简介及环境配置/success.png" alt=""></p>
+<h2 id="2">配置环境中遇到的问题</h2>
+
+<h3 id="2.1">创建项目卡在第一步，一直不会动</h3>
+
+<p>解决办法：需要配置两个环境变量，设置一下源。</p>
 <ol>
-<li><p>在根目录下，命令行中输入下列代码，自动创建一个后缀为md的文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post “博客名”</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>由于Hexo的博客都是md文件，所以需要学一下md的语法，其实很简单，自行百度去吧。我是用vscode编写的，安装一个Markdown Preview Enhanced插件，就可以预览写出来的东西，vscode真牛逼！！！</p>
-</li>
-<li>编写完成后，在执行打包提交代码，就能对线上的博客进行更新了。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
-</li>
+<li>在用户变量中创建PUB_HOSTED_URL ，值为<a href="https://pub.flutter-io.cn" target="_blank" rel="noopener">https://pub.flutter-io.cn</a></li>
+<li>在用户变量中创建FLUTTER_STORAGE_BASE_URL，值为<a href="https://storage.flutter-io.cn" target="_blank" rel="noopener">https://storage.flutter-io.cn</a></li>
 </ol>
-<p>以上就是安装hexo和上线的操作咯，接下来还有更高级的操作咧。</p>
+<p></p><h3 id="2.2">Android SDK下载慢</h3><br>解决办法：可以先去百度云盘或者某些网站下载一个，这样进行外网安装的时候，可以减少一点时间。<p></p>
+<p></p><h2 id="3">总结</h2><br>&emsp;&emsp;总的来说搭建这个环境还是蛮简单的，前提是有一个稳定的网，今天的网真的是无语了，安装sdk直接retry三次。接下来就是看官网文档，学习这些新的部件和语法了。对于mac电脑的配置等我有了mac再说吧，太真实了。<p></p>
 
       
     </div>
@@ -466,6 +491,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          
+        </div>
+      
 
       
       
@@ -475,15 +506,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/12/02/Redux 源码解读/" rel="next" title="听我吹逼之Redux 源码解读（一）">
+                <i class="fa fa-chevron-left"></i> 听我吹逼之Redux 源码解读（一）
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/05/使用-Hexo-搭建属于自己的博客（二）/" rel="prev" title="使用 Hexo 搭建属于自己的博客（二）">
-                使用 Hexo 搭建属于自己的博客（二） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -666,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">关联github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">编写博客</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">开发环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1.1"><span class="nav-number">1.1.</span> <span class="nav-text">获取Flutter SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.2"><span class="nav-number">1.2.</span> <span class="nav-text">安装JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.3"><span class="nav-number">1.3.</span> <span class="nav-text">安装Android Studio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.4"><span class="nav-number">1.4.</span> <span class="nav-text">连接调试设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.5"><span class="nav-number">1.5.</span> <span class="nav-text">创建项目，启动flutter！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">配置环境中遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1"><span class="nav-number">2.1.</span> <span class="nav-text">创建项目卡在第一步，一直不会动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2"><span class="nav-number">2.2.</span> <span class="nav-text">Android SDK下载慢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
